@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a1a36">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Una carta para vos.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Para Zaira">
+<meta property="og:description" content="Una carta para vos.">
+<meta property="og:locale" content="es_AR">
+<title>Para Zaira</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --tinta: #0a1a36;
+  --noche: #050d1c;
+  --texto: #e4ebf6;
+  --suave: #9db0cf;
+  --hilo: #8db4ff;
+  --sello: #ff5870;
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --firma: "Mrs Saint Delafield", "Snell Roundhand", "Segoe Script", cursive;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  color: var(--texto);
+  font-family: var(--serif);
+  background-color: var(--noche);
+}
+
+/* Fondo en capa fija: iOS ignora background-attachment: fixed */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(120% 70% at 50% 0%, #153566 0%, var(--tinta) 45%, var(--noche) 100%);
+}
+
+/* Estrellas fijas, apenas perceptibles */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(1.2px 1.2px at 12% 14%, #fff9, #0000),
+    radial-gradient(1px 1px at 82% 9%, #fff8, #0000),
+    radial-gradient(1.4px 1.4px at 67% 31%, #bcd8ff9c, #0000),
+    radial-gradient(1px 1px at 24% 46%, #fff7, #0000),
+    radial-gradient(1.2px 1.2px at 90% 58%, #fff8, #0000),
+    radial-gradient(1px 1px at 8% 77%, #bcd8ff88, #0000),
+    radial-gradient(1.2px 1.2px at 55% 88%, #fff7, #0000);
+  animation: titilar 7s ease-in-out infinite;
+}
+@keyframes titilar { 50% { opacity: .55; } }
+
+/* ---------- Portada: la carta sellada ---------- */
+.intro {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem 1.5rem;
+}
+
+.fade { transition: opacity .8s ease, transform .8s ease; }
+.intro.open .fade { opacity: 0; transform: translateY(-8px); }
+
+.intro h1 {
+  margin: 0;
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(2.8rem, 12vw, 5rem);
+  line-height: 1.05;
+  letter-spacing: -.01em;
+}
+
+.intro .sub {
+  max-width: 21rem;
+  margin: 1.1rem 0 2.6rem;
+  color: var(--suave);
+  font-size: 1.1rem;
+  line-height: 1.55;
+}
+
+.sello {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  width: 168px;
+  height: 168px;
+  filter: drop-shadow(0 16px 24px #0009);
+  animation: respirar 3.4s ease-in-out infinite;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.sello:active { transform: scale(.95); }
+.sello:focus-visible { outline: 2px solid var(--hilo); outline-offset: 8px; border-radius: 50%; }
+.sello svg { display: block; width: 100%; height: 100%; overflow: visible; }
+@keyframes respirar { 50% { transform: scale(1.04); } }
+
+.half {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transition: transform 1s cubic-bezier(.5, 0, .2, 1), opacity 1s ease;
+}
+.intro.open .sello { animation: none; pointer-events: none; }
+.intro.open .l { transform: translate(-30px, 14px) rotate(-14deg); opacity: 0; }
+.intro.open .r { transform: translate(30px, 14px) rotate(14deg); opacity: 0; }
+
+.intro .hint {
+  margin: 2.2rem 0 0;
+  color: var(--suave);
+  font-size: 1rem;
+  font-style: italic;
+}
+
+/* ---------- La carta ---------- */
+.letter {
+  max-width: 35rem;
+  margin: 0 auto;
+  padding: max(12vh, 5rem) max(1.5rem, env(safe-area-inset-right)) calc(5rem + env(safe-area-inset-bottom)) max(1.5rem, env(safe-area-inset-left));
+}
+.letter.in { animation: aparecer 1.6s ease both; }
+@keyframes aparecer { from { opacity: 0; } }
+
+.prog {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--hilo);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  z-index: 10;
+}
+
+.letter h2 {
+  margin: 0 0 1.8rem;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(2rem, 7vw, 2.6rem);
+  line-height: 1.15;
+}
+
+.letter p {
+  margin: 0 0 1.15em;
+  font-size: 1.1875rem;
+  line-height: 1.75;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.letter .fuerte { font-weight: 560; color: #fff; }
+
+blockquote {
+  margin: 2.4rem 0;
+  padding-left: 1.3rem;
+  border-left: 1px solid var(--hilo);
+  font-size: clamp(1.3rem, 4.6vw, 1.55rem);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.5;
+  color: #cfe0ff;
+}
+
+.cierre { margin: 3rem 0 0; font-style: italic; color: var(--suave); }
+
+.firma {
+  margin: .4rem 0 0;
+  font-family: var(--firma);
+  font-size: clamp(3.4rem, 15vw, 4.6rem);
+  line-height: 1.1;
+  color: var(--hilo);
+}
+
+/* ---------- Final ---------- */
+.final {
+  margin-top: 6rem;
+  text-align: center;
+}
+
+.corazon {
+  display: block;
+  width: 132px;
+  margin: 0 auto 2.2rem;
+  overflow: visible;
+}
+.corazon path {
+  fill: #ff587000;
+  stroke: var(--sello);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.corazon text {
+  fill: var(--sello);
+  font: italic 300 40px var(--serif);
+  opacity: 0;
+}
+.corazon.draw path {
+  stroke-dashoffset: 0;
+  fill: #ff58701f;
+  transition: stroke-dashoffset 2.8s ease-in-out, fill 1.2s ease 2.5s;
+}
+.corazon.draw text { opacity: 1; transition: opacity 1.2s ease 2.4s; }
+.corazon.draw { animation: latido 1.9s ease-in-out 4.2s infinite; }
+@keyframes latido {
+  0%, 34%, 100% { transform: scale(1); }
+  8% { transform: scale(1.07); }
+  16% { transform: scale(1); }
+  24% { transform: scale(1.045); }
+}
+
+.final h3 {
+  margin: 0 0 .9rem;
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(1.8rem, 6.5vw, 2.3rem);
+  line-height: 1.2;
+}
+.final p { max-width: 24rem; margin: 0 auto .9em; color: #c9d7ee; font-size: 1.125rem; }
+.final .ps { color: var(--suave); font-style: italic; font-size: 1rem; }
+
+.volver {
+  margin-top: 2.2rem;
+  padding: .4rem .1rem;
+  border: 0;
+  border-bottom: 1px solid var(--hilo);
+  background: none;
+  color: var(--hilo);
+  font: italic 1.05rem var(--serif);
+  cursor: pointer;
+}
+.volver:focus-visible { outline: 2px solid var(--hilo); outline-offset: 5px; }
+
+/* ---------- Música ---------- */
+.letter.cerrada { height: 0; padding: 0; overflow: hidden; visibility: hidden; }
+
+.musica {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 10;
+  width: 46px;
+  height: 46px;
+  border: 1px solid #8db4ff66;
+  border-radius: 50%;
+  background: #0a1a36cc;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: var(--hilo);
+  font: italic 1.35rem var(--serif);
+  cursor: pointer;
+}
+.musica::after {
+  content: "";
+  position: absolute;
+  left: 11px; right: 11px; top: 50%;
+  border-top: 2px solid var(--hilo);
+  transform: rotate(-40deg);
+  opacity: 0;
+}
+.musica.off { color: var(--suave); }
+.musica.off::after { opacity: 1; }
+.musica:focus-visible { outline: 2px solid var(--hilo); outline-offset: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before { animation: none !important; transition-duration: .01s !important; transition-delay: 0s !important; }
+  .corazon path { stroke-dashoffset: 0; fill: #ff58701f; }
+  .corazon text { opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="audio" src="m-a-i.mp3" loop preload="auto"></audio>
+
+<section class="intro" id="intro">
+  <h1 class="fade">Para Zaira</h1>
+  <p class="sub fade">
+    Hay personas que, incluso después de nuestros errores,
+    siguen demostrando lo que significa estar de verdad.
+  </p>
+
+  <button class="sello" id="sello" type="button" aria-label="Romper el sello y abrir la carta">
+    <svg viewBox="0 0 160 160" aria-hidden="true">
+      <defs>
+        <radialGradient id="cera" cx="36%" cy="30%" r="78%">
+          <stop offset="0" stop-color="#e9485d"/>
+          <stop offset=".55" stop-color="#b5202f"/>
+          <stop offset="1" stop-color="#76101d"/>
+        </radialGradient>
+        <filter id="borde" x="-12%" y="-12%" width="124%" height="124%">
+          <feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="7" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="10"/>
+        </filter>
+        <g id="s">
+          <circle cx="80" cy="80" r="60" fill="url(#cera)" filter="url(#borde)"/>
+          <circle cx="80" cy="80" r="45" fill="none" stroke="#ff9aa7" stroke-opacity=".35" stroke-width="2"/>
+          <circle cx="81.5" cy="81.5" r="45" fill="none" stroke="#50091a" stroke-opacity=".4" stroke-width="1"/>
+          <text x="80" y="84" text-anchor="middle" dominant-baseline="central"
+                font-family="Newsreader, Georgia, serif" font-style="italic" font-size="68"
+                fill="#8a1424" stroke="#ff9aa7" stroke-opacity=".45" stroke-width=".8">Z</text>
+        </g>
+        <clipPath id="cl"><path d="M0 0H84L76 30L88 56L74 84L86 112L78 160H0Z"/></clipPath>
+        <clipPath id="cr"><path d="M160 0H84L76 30L88 56L74 84L86 112L78 160H160Z"/></clipPath>
+      </defs>
+      <g class="half l" clip-path="url(#cl)"><use href="#s"/></g>
+      <g class="half r" clip-path="url(#cr)"><use href="#s"/></g>
+    </svg>
+  </button>
+
+  <p class="hint fade">Tocá el sello para abrir</p>
+</section>
+
+<main class="letter cerrada" id="letter">
+  <div class="prog" id="prog"></div>
+  <button class="musica off" id="musica" type="button" aria-pressed="false" aria-label="Pausar o reanudar la música">♪</button>
+
+  <h2>Querida Zaira,</h2>
+
+  <p>
+    A veces uno necesita un golpe de realidad para darse cuenta
+    de las cosas que realmente importan. Y vos tuviste que pasar
+    por eso para entender cuánto valen tu amistad, tu lealtad y
+    el lugar que vos y tu familia me dieron.
+  </p>
+
+  <p>
+    Cuando era más chico, no supe valorar de verdad lo que
+    significaba que me aceptaran en una familia, que me brindaran
+    cariño y que me hicieran sentir parte de algo tan lindo.
+    Con mis actitudes, terminé fallándote a vos y a tu familia,
+    y hoy reconozco que hubo cosas que hice que no correspondían.
+  </p>
+
+  <p>
+    No te escribo esto para justificar mis errores, porque sé
+    que equivocarse no borra el daño que uno puede causar.
+    Te lo digo porque aprendí, maduré y entendí que una amistad
+    como la tuya no se encuentra todos los días.
+  </p>
+
+  <p>
+    Me arrepiento de las veces que te fallé y valoro de corazón
+    que, a pesar de nuestras diferencias y de todo lo que pasó,
+    hayas estado dispuesta a perdonarme.
+  </p>
+
+  <p>
+    Gracias por no cerrar del todo la puerta, por darme
+    oportunidades y por demostrarme que una amistad sincera
+    también sabe atravesar momentos difíciles. Sé que no tengo
+    que demostrarte las cosas solamente con palabras: también
+    me corresponde hacerlo con mis actitudes y con la persona
+    que elijo ser de ahora en adelante.
+  </p>
+
+  <blockquote>
+    No quiero volver a cometer los mismos errores. Quiero cuidar
+    esta amistad, respetarte, respetar a tu familia y demostrarte
+    que aprendí a valorar lo que antes quizás no supe cuidar
+    como merecía.
+  </blockquote>
+
+  <p>
+    Si algo tengo claro hoy, es que tu amistad significa muchísimo
+    para mí. Entre tantas personas que conocí, vos fuiste esa amiga
+    que me demostró una sinceridad que no me voy a olvidar.
+    Y eso es algo que voy a llevar conmigo siempre.
+  </p>
+
+  <p>
+    <span class="fuerte">Te voy a amar siempre, Zaira, en toda circunstancia y en todo momento.</span>
+    No porque nuestra amistad haya sido perfecta, sino porque,
+    con todo lo bueno y lo malo que vivimos, aprendí a valorar
+    de verdad tenerte en mi vida.
+  </p>
+
+  <p>
+    Ojalá la vida nos permita compartir muchísimas cosas más,
+    reírnos de nuestras pavadas, superar las diferencias y seguir
+    construyendo una amistad de la que los dos podamos sentirnos
+    orgullosos.
+  </p>
+
+  <p>
+    Gracias por tu amistad, por tu lealtad y por haberme dado
+    la oportunidad de aprender de mis errores. Nunca quiero
+    que dudes de lo importante que sos para mí.
+  </p>
+
+  <p class="cierre">Con todo mi cariño, hoy y siempre:</p>
+  <p class="firma">Tu amigo, Dylan.</p>
+
+  <section class="final">
+    <svg class="corazon" id="corazon" viewBox="0 0 100 90" role="img" aria-label="Un corazón con la letra Z">
+      <path pathLength="1" d="M50 82C20 58 6 40 6 24C6 12 15 5 26 5C36 5 45 11 50 20C55 11 64 5 74 5C85 5 94 12 94 24C94 40 80 58 50 82Z"/>
+      <text x="50" y="42" text-anchor="middle" dominant-baseline="central">Z</text>
+    </svg>
+
+    <h3>Un lugar en mi corazón</h3>
+    <p>
+      Algunas amistades merecen cuidarse todos los días.
+      Gracias por ser parte de mi vida, Zaira.
+    </p>
+    <p class="ps">P.D.: leela sin apuro, las veces que quieras.</p>
+
+    <button class="volver" id="volver" type="button">Volver al principio</button>
+  </section>
+</main>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const intro = $("#intro"), sello = $("#sello"), letter = $("#letter");
+  const bar = $("#prog"), corazon = $("#corazon");
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let abierta = false;
+
+  function progreso() {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = "scaleX(" + (max > 0 ? Math.min(1, scrollY / max) : 0) + ")";
+  }
+  addEventListener("scroll", progreso, { passive: true });
+  addEventListener("resize", progreso, { passive: true });
+
+  sello.addEventListener("click", () => {
+    if (abierta) return;
+    abierta = true;
+    arrancar();
+    intro.classList.add("open");
+    if (navigator.vibrate) navigator.vibrate(30);
+
+    setTimeout(() => {
+      intro.hidden = true;
+      letter.classList.remove("cerrada");
+      letter.classList.add("in");
+      scrollTo(0, 0);
+      progreso();
+
+      // El corazón se dibuja cuando llega a la pantalla
+      new IntersectionObserver((e, o) => {
+        if (e[0].isIntersecting) { corazon.classList.add("draw"); o.disconnect(); }
+      }, { threshold: .6 }).observe(corazon);
+    }, reduced ? 0 : 1300);
+  });
+
+  /* ---------- Música: archivo de audio (m-a-i.mp3, junto a este HTML) ---------- */
+  const audio = $("#audio"), musica = $("#musica");
+  let pausadaPorPestana = false;
+
+  audio.addEventListener("play", () => {
+    musica.classList.remove("off");
+    musica.setAttribute("aria-pressed", "true");
+  });
+  audio.addEventListener("pause", () => {
+    musica.classList.add("off");
+    musica.setAttribute("aria-pressed", "false");
+  });
+
+  // Arranca solo al romper el sello, con fade-in de volumen
+  function arrancar() {
+    audio.volume = 0;
+    const p = audio.play();
+    if (p) p.catch(() => {});
+    let v = 0;
+    const t = setInterval(() => {
+      v = Math.min(0.65, v + 0.05);
+      audio.volume = v;
+      if (v >= 0.65) clearInterval(t);
+    }, 300);
+  }
+
+  musica.addEventListener("click", () => {
+    if (audio.paused) { audio.volume = 0.65; audio.play().catch(() => {}); }
+    else audio.pause();
+  });
+
+  // Si cambia de pestaña o bloquea el celular, se pausa y vuelve sola
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden && !audio.paused) { audio.pause(); pausadaPorPestana = true; }
+    else if (!document.hidden && pausadaPorPestana) { pausadaPorPestana = false; audio.play().catch(() => {}); }
+  });
+
+  $("#volver").addEventListener("click", () =>
+    scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" }));
+})();
+</script>
+</body>
+</html>
